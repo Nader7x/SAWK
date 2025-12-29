@@ -1,0 +1,45 @@
+{
+	"BEGIN block": {
+		"prefix": "BEGIN",
+		"body": [
+			"BEGIN {",
+			"\t$0",
+			"}"
+		],
+		"description": "BEGIN block"
+	},
+	"END block": {
+		"prefix": "END",
+		"body": [
+			"END {",
+			"\t$0",
+			"}"
+		],
+		"description": "END block"
+	},
+	"if statement": {
+		"prefix": "if",
+		"body": [
+			"if ($1) {",
+			"\t$0",
+			"}"
+		],
+		"description": "if statement"
+	},
+	"for loop": {
+		"prefix": "for",
+		"body": [
+			"for ($1) {",
+			"\t$0",
+			"}"
+		],
+		"description": "for loop"
+	},
+	"print": {
+		"prefix": "print",
+		"body": [
+			"print $0"
+		],
+		"description": "print statement"
+	}
+}

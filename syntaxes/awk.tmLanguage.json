@@ -1,0 +1,97 @@
+{
+	"scopeName": "source.awk",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#builtins"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#regexp"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#field-reference"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.number-sign.awk",
+					"match": "#.*$"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.awk",
+					"match": "\\b(if|else|while|do|for|break|continue|delete|exit|function|return|next|nextfile|print|printf|getline|in)\\b"
+				},
+				{
+					"name": "keyword.other.awk",
+					"match": "\\b(BEGIN|END|BEGINFILE|ENDFILE)\\b"
+				}
+			]
+		},
+		"builtins": {
+			"patterns": [
+				{
+					"name": "variable.language.awk",
+					"match": "\\b(FS|NF|NR|FNR|OFS|ORS|RS|FILENAME|SUBSEP|ARGC|ARGV|ENVIRON|CONVFMT|OFMT|RLENGTH|RSTART)\\b"
+				},
+				{
+					"name": "support.function.builtin.awk",
+					"match": "\\b(atan2|cos|exp|int|log|rand|sin|sqrt|srand|gsub|index|length|match|split|sprintf|sub|substr|tolower|toupper|close|system|strftime|systime|mktime|gensub|patsplit|asort|asorti)\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.awk",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.awk",
+					"match": "\\\\."
+				}
+			]
+		},
+		"regexp": {
+			"name": "string.regexp.awk",
+			"begin": "/(?=[^/\\n]*?/)",
+			"end": "/",
+			"patterns": [
+				{
+					"name": "constant.character.escape.awk",
+					"match": "\\\\."
+				}
+			]
+		},
+		"operators": {
+			"name": "keyword.operator.awk",
+			"match": "(\\+\\+|--|\\+=|-=|\\*=|/=|%=|\\^=|\\+|-|\\*|/|%|\\^|!|==|!=|<=|>=|<|>|~|!~|&&|\\|\\||\\?|:|=)"
+		},
+		"numbers": {
+			"name": "constant.numeric.awk",
+			"match": "\\b[0-9]+(\\.[0-9]+)?([eE][+-]?[0-9]+)?\\b"
+		},
+		"field-reference": {
+			"name": "variable.other.field.awk",
+			"match": "\\$[0-9]+|\\$[A-Za-z_][A-Za-z0-9_]*|\\$\\([^)]+\\)"
+		}
+	}
+}

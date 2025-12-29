@@ -1,0 +1,77 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deactivate = exports.activate = void 0;
+const path = __importStar(require("path"));
+const vscode_1 = require("vscode");
+const node_1 = require("vscode-languageclient/node");
+let client;
+function activate(context) {
+    // Create output channel for client logs
+    const extensionOutputChannel = vscode_1.window.createOutputChannel('SAWK Extension');
+    extensionOutputChannel.show(true);
+    extensionOutputChannel.appendLine(`SAWK Extension: Activating...`);
+    // The server is implemented in node
+    const serverModule = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
+    extensionOutputChannel.appendLine(`SAWK Extension: Server module path: ${serverModule}`);
+    // If the extension is launched in debug mode then the debug server options are used
+    // Otherwise the run options are used
+    const serverOptions = {
+        run: { module: serverModule, transport: node_1.TransportKind.ipc },
+        debug: {
+            module: serverModule,
+            transport: node_1.TransportKind.ipc,
+        }
+    };
+    // Options to control the language client
+    const clientOptions = {
+        // Register the server for awk documents
+        documentSelector: [{ scheme: 'file', language: 'awk' }],
+        // outputChannel: extensionOutputChannel, // Commented out to let Client create its own "SAWK Language Server" channel
+        synchronize: {
+            // Notify the server about file changes to '.clientrc files contained in the workspace
+            fileEvents: vscode_1.workspace.createFileSystemWatcher('**/.clientrc')
+        }
+        // errorHandler removed to fix type issues
+    };
+    // Create the language client and start the client.
+    client = new node_1.LanguageClient('sawk', 'SAWK Language Server', serverOptions, clientOptions);
+    extensionOutputChannel.appendLine(`SAWK Extension: Starting client...`);
+    // Start the client. This will also launch the server
+    client.start().then(() => {
+        extensionOutputChannel.appendLine(`SAWK Extension: Client started successfully.`);
+    }).catch(e => {
+        extensionOutputChannel.appendLine(`SAWK Extension: Client failed to start: ${e}`);
+    });
+}
+exports.activate = activate;
+function deactivate() {
+    if (!client) {
+        return undefined;
+    }
+    return client.stop();
+}
+exports.deactivate = deactivate;
+//# sourceMappingURL=extension.js.map

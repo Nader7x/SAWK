@@ -1,0 +1,107 @@
+{
+  "name": "sawk",
+  "displayName": "SAWK - Smart AWK",
+  "description": "Professional-grade AWK extension with Language Server Protocol support",
+  "author": "Nader7x",
+  "license": "MIT",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nader7x/SAWK"
+  },
+  "publisher": "Nader7x",
+  "icon": "images/icon.png",
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "awk",
+    "gawk",
+    "lsp",
+    "intellisense",
+    "autocomplete"
+  ],
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "activationEvents": [    
+    "onStartupFinished"
+  ],
+  "main": "./client/dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "awk",
+        "aliases": [
+          "AWK",
+          "awk"
+        ],
+        "extensions": [
+          ".awk",
+          ".gawk"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "awk",
+        "scopeName": "source.awk",
+        "path": "./syntaxes/awk.tmLanguage.json"
+      },
+      {
+        "injectTo": [
+          "source.shell",
+          "source.bash",
+          "source.sh"
+        ],
+        "scopeName": "inline.awk",
+        "path": "./syntaxes/awk-injection.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.inline.awk": "awk",
+          "source.awk": "awk"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "awk",
+        "path": "./snippets/awk.json"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "SAWK Configuration",
+      "properties": {
+        "sawk.trace.server": {
+          "scope": "window",
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the language server."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "node build.js",
+    "watch": "node build.js --watch",
+    "package": "node build.js --production",
+    "postinstall": "cd client && pnpm install && cd ../server && pnpm install",
+    "test": "sh ./scripts/e2e.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "@types/vscode": "^1.75.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "esbuild": "^0.27.2",
+    "eslint": "^8.26.0",
+    "typescript": "^4.8.4"
+  }
+}
