@@ -2,7 +2,7 @@
 	"name": "sawk-client",
 	"description": "LSP Client for SAWK",
 	"version": "0.0.1",
-	"publisher": "antigravity",
+	"publisher": "Nader7x",
 	"engines": {
 		"vscode": "^1.75.0"
 	},

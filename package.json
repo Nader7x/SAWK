@@ -92,7 +92,6 @@
     "compile": "node build.js",
     "watch": "node build.js --watch",
     "package": "node build.js --production",
-    "postinstall": "cd client && pnpm install && cd ../server && pnpm install",
     "test": "sh ./scripts/e2e.sh"
   },
   "devDependencies": {

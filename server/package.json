@@ -2,7 +2,7 @@
 	"name": "sawk-server",
 	"description": "LSP Server for SAWK",
 	"version": "0.0.1",
-	"publisher": "antigravity",
+	"publisher": "Nader7x",
 	"engines": {
 		"node": ">=16"
 	},
