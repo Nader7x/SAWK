@@ -1,0 +1,15 @@
+node_modules/
+out/
+dist/
+build/
+.vscode-test/
+*.vsix
+*.map
+client/out/
+client/dist/
+server/out/
+server/dist/
+server/tree-sitter-awk.wasm
+test.awk
+test.sh
+inline_awk_demo.sh
